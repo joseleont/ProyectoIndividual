@@ -44,6 +44,8 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
     DatabaseReference databaseReferenceCantidadDeDeudas= FirebaseDatabase.getInstance().getReference();
     DatabaseReference databaseReferenceGuardarCantidadDeDeudas= FirebaseDatabase.getInstance().getReference();
 
+    DatabaseReference databaseReferenceFecha= FirebaseDatabase.getInstance().getReference(); //GUARDAR LA FECHA
+
     ListenerFb listenerFb = new ListenerFb();;
 
     String usuario;
@@ -53,6 +55,8 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
 
     int cantidadDeudas; //Cantidad de deudas
     //SIRVE PARA ALMACENAR LA INFORMACION
+
+    float montoDeuda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +71,6 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
 
 
         //OBTENER LA CANTIDAD DE DEUDAS
-        //TODO
         databaseReferenceCantidadDeDeudas.child("Clientes").child(usuario+"_"+nombre).child("Deuda").child("CantidadDeDeudas").addValueEventListener(listenerFb);
 
 
@@ -152,16 +155,23 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
         arregloDeuda=arrayDeuda.toArray(arregloDeuda);
 
         for(int pos=0;pos<arregloDeuda.length;pos++){
+            montoDeuda=montoDeuda+arregloDeuda[pos].getPrecio()*arregloDeuda[pos].getCantidad();
             databaseReference.child("Clientes").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("Producto"+(pos+1)).setValue(arregloDeuda[pos]);
         }
+        //GUARDAR FECHA
+        databaseReferenceFecha.child("Clientes").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("Fecha").setValue(fecha);
 
-        actualizarCantidadDeDeudas();
+        databaseReferenceFecha.child("Clientes").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("MontoDeuda").setValue(montoDeuda);
+
+        
+
+        guardarCantidadDeDeudas();
         databaseReferenceCantidadDeDeudas.removeEventListener(listenerFb);
         finish();
 
     }
 
-    public void actualizarCantidadDeDeudas(){
+    public void guardarCantidadDeDeudas(){
         String a= String.valueOf(cantidadDeudas+1);
 
        databaseReferenceGuardarCantidadDeDeudas.child("Clientes").child(usuario+"_"+nombre).child("Deuda").child("CantidadDeDeudas").setValue(a);
@@ -201,6 +211,8 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
                 //Log.d("infoApp",snapshot.getValue().toString());
 
                 cantidadDeudas= Integer.parseInt(String.valueOf(snapshot.getValue()));
+                //SE TRANSFORMA DE UN OBJETO A STRING
+                //SE TRANSOFRMA DE UN STRING A INT
 
             }
 

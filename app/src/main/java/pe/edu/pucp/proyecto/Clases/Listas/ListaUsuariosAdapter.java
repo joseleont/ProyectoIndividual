@@ -42,8 +42,7 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
     String nombre=data[position].getNombre();
     String apellido=data[position].getApellido();
 
-
-       int montoTotal=data[position].getMontoTotal();
+    float montoTotal=data[position].getMontoTotal();
 
 
 

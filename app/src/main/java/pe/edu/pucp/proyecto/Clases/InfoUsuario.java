@@ -13,18 +13,18 @@ public class InfoUsuario {
 
 
 
-    private int montoTotal;
+    private float montoTotal;
 
     private String apodo;
 
 
-    public int getMontoTotal() {
+    public float getMontoTotal() {
 
             return montoTotal;
 
     }
 
-    public void setMontoTotal(int montoTotal) {
+    public void setMontoTotal(float montoTotal) {
         this.montoTotal = montoTotal;
     }
 
