@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="pe.edu.pucp.proyecto">
+
+    <uses-feature
+        android:name="android.hardware.camara"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Proyecto">
+        <activity android:name=".Vendedor.NuevaDeuda"
+            android:parentActivityName=".Vendedor.PantallaListaDeudasDelCliente"></activity>
+        <activity android:name=".Vendedor.PantallaListaDeudasDelCliente" />
+        <activity android:name=".Vendedor.PantallaPrincipalVendedor">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".cliente.PantallaPrincipalCliente" />
+
+        <activity android:name=".cliente.RegistroNewUsuario" >
+
+
+        </activity>
+        <activity android:name=".cliente.ModificarPerfil" />
+        <activity android:name=".MainActivity" />
+    </application>
+
+</manifest>
