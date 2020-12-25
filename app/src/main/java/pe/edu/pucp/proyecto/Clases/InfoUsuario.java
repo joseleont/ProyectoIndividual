@@ -11,20 +11,30 @@ public class InfoUsuario {
     private String correo;
     private String numeroTelefonico;
 
+    private String tipo;
 
 
-    private float montoTotal;
+
+    private String montoTotal;
 
     private String apodo;
 
 
-    public float getMontoTotal() {
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getMontoTotal() {
 
             return montoTotal;
 
     }
 
-    public void setMontoTotal(float montoTotal) {
+    public void setMontoTotal(String montoTotal) {
         this.montoTotal = montoTotal;
     }
 

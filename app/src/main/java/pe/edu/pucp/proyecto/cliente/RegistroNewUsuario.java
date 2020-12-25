@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +41,7 @@ public class RegistroNewUsuario extends AppCompatActivity {
     ListenerFbLectura listenerFbLectura;
 
 
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,8 @@ public class RegistroNewUsuario extends AppCompatActivity {
 
         //OBTENER TODOS LOS USUARIOS
         listenerFbLectura=new ListenerFbLectura();
-        databaseReference.child("Clientes").addChildEventListener(listenerFbLectura);
+        databaseReference.child("Usuarios").addChildEventListener(listenerFbLectura);
+
 
 
     }
@@ -68,7 +71,7 @@ public class RegistroNewUsuario extends AppCompatActivity {
         super.onResume();
         if(a==1){
             listenerFbLectura=new ListenerFbLectura();
-            databaseReference.child("Clientes").addChildEventListener(listenerFbLectura);
+            databaseReference.child("Usuarios").addChildEventListener(listenerFbLectura);
             a=0;
         }
     }
@@ -133,8 +136,10 @@ public class RegistroNewUsuario extends AppCompatActivity {
             usuarioClase.setNombre(nombre.getText().toString());
             usuarioClase.setApellido(apellido.getText().toString());
             usuarioClase.setContraseña(contraseña.getText().toString());
+            usuarioClase.setTipo("cliente");
 
-            databaseReference.child("Clientes").child(usuario.getText().toString()+"_"+nombre.getText().toString()).setValue(usuarioClase).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+            databaseReference.child("Usuarios").child(usuario.getText().toString()+"_"+nombre.getText().toString()).setValue(usuarioClase).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
 
@@ -156,7 +161,7 @@ public class RegistroNewUsuario extends AppCompatActivity {
                 }
             });
 
-           databaseReference.child("Clientes").child(usuario.getText().toString()+"_"+nombre.getText().toString()).child("Deuda").child("CantidadDeDeudas").setValue("0");
+           databaseReference.child("Usuarios").child(usuario.getText().toString()+"_"+nombre.getText().toString()).child("Deuda").child("CantidadDeDeudas").setValue("0");
         }
 
 

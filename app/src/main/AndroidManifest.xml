@@ -16,24 +16,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto">
-        <activity android:name=".Vendedor.NuevaDeuda"
-            android:parentActivityName=".Vendedor.PantallaListaDeudasDelCliente"></activity>
+        <activity android:name=".Vendedor.pantallaRegistrarPagos"></activity>
+        <activity
+            android:name=".Vendedor.NuevaDeuda"
+            android:parentActivityName=".Vendedor.PantallaListaDeudasDelCliente" />
         <activity android:name=".Vendedor.PantallaListaDeudasDelCliente" />
         <activity android:name=".Vendedor.PantallaPrincipalVendedor">
+
+        </activity>
+        <activity android:name=".cliente.PantallaPrincipalCliente" />
+        <activity android:name=".cliente.RegistroNewUsuario">
+
+        </activity>
+        <activity android:name=".cliente.ModificarPerfil" />
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".cliente.PantallaPrincipalCliente" />
-
-        <activity android:name=".cliente.RegistroNewUsuario" >
 
 
-        </activity>
-        <activity android:name=".cliente.ModificarPerfil" />
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1009882753936-qe6ronfr79vvej4n2dvmogtidvu27tat.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pe.edu.pucp.proyecto",
+            "certificate_hash": "fec07a8d802f59d1e5aaef5a8f057102db0ecf1e"
+          }
+        },
+        {
           "client_id": "1009882753936-qh5ueolu2pmbq9bm9nguh1i562blecia.apps.googleusercontent.com",
           "client_type": 3
         }

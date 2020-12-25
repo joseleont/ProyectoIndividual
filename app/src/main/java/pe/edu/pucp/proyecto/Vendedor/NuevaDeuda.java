@@ -46,7 +46,13 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
 
     DatabaseReference databaseReferenceFecha= FirebaseDatabase.getInstance().getReference(); //GUARDAR LA FECHA
 
-    ListenerFb listenerFb = new ListenerFb();;
+    DatabaseReference databaseReferenceMontoTotal= FirebaseDatabase.getInstance().getReference();
+
+
+
+    ListenerFb listenerFb = new ListenerFb();
+    Listener listener = new Listener();
+
 
     String usuario;
     String nombre;
@@ -58,10 +64,14 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
 
     float montoDeuda;
 
+    float montoTotal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_deuda);
+
+
 
 
         Intent intent=getIntent();
@@ -69,9 +79,11 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
         nombre=intent.getStringExtra("nombre");
 
 
-
         //OBTENER LA CANTIDAD DE DEUDAS
-        databaseReferenceCantidadDeDeudas.child("Clientes").child(usuario+"_"+nombre).child("Deuda").child("CantidadDeDeudas").addValueEventListener(listenerFb);
+        databaseReferenceCantidadDeDeudas.child("Usuarios").child(usuario+"_"+nombre).child("Deuda").child("CantidadDeDeudas").addValueEventListener(listenerFb);
+
+        //OBTENER EL MONTO TOTAL
+        databaseReferenceMontoTotal.child("Usuarios").child(usuario+"_"+nombre).child("montoTotal").addValueEventListener(listener);
 
 
         TextView textViewFecha =findViewById(R.id.textViewFecha);
@@ -155,15 +167,18 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
         arregloDeuda=arrayDeuda.toArray(arregloDeuda);
 
         for(int pos=0;pos<arregloDeuda.length;pos++){
+            arregloDeuda[pos].setPrecio(Math.round(arregloDeuda[pos].getPrecio()* 100) / 100f); //LIMITAR LOS DECIMALES
             montoDeuda=montoDeuda+arregloDeuda[pos].getPrecio()*arregloDeuda[pos].getCantidad();
-            databaseReference.child("Clientes").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("Producto"+(pos+1)).setValue(arregloDeuda[pos]);
+            databaseReference.child("Usuarios").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("Producto").child("Producto"+(pos+1)).setValue(arregloDeuda[pos]);
         }
         //GUARDAR FECHA
-        databaseReferenceFecha.child("Clientes").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("Fecha").setValue(fecha);
+        databaseReferenceFecha.child("Usuarios").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("Fecha").setValue(fecha);
 
-        databaseReferenceFecha.child("Clientes").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("MontoDeuda").setValue(montoDeuda);
+        databaseReferenceFecha.child("Usuarios").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("MontoDeuda").setValue(String.valueOf(Math.round(montoDeuda * 100) / 100f));
 
-        
+
+
+        actualizarMontoTotal();
 
         guardarCantidadDeDeudas();
         databaseReferenceCantidadDeDeudas.removeEventListener(listenerFb);
@@ -174,13 +189,19 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
     public void guardarCantidadDeDeudas(){
         String a= String.valueOf(cantidadDeudas+1);
 
-       databaseReferenceGuardarCantidadDeDeudas.child("Clientes").child(usuario+"_"+nombre).child("Deuda").child("CantidadDeDeudas").setValue(a);
+       databaseReferenceGuardarCantidadDeDeudas.child("Usuarios").child(usuario+"_"+nombre).child("Deuda").child("CantidadDeDeudas").setValue(a);
     }
 
+    public void actualizarMontoTotal(){
 
+        float a=montoDeuda+montoTotal;
+        float c= Math.round(a * 100) / 100f;
+        Log.d("SUMA",montoDeuda +"+"+montoTotal +"="+(montoTotal+montoDeuda));
+        String b= String.valueOf(c);
+        //ACTUALIZAR EL MONTO TOTAL
+        databaseReferenceMontoTotal.child("Usuarios").child(usuario+"_"+nombre).child("montoTotal").setValue(b);
 
-
-
+    }
 
 
     public void iniciarRecyclerView(){
@@ -223,4 +244,26 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
 
         }
     }
+
+
+    //se obtiene la cantidad de deudas
+    private class Listener implements ValueEventListener {
+
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            if(snapshot.getValue()!=null){
+
+                montoTotal= Float.parseFloat(String.valueOf(snapshot.getValue()));
+                Log.d("infoApp",""+montoTotal);
+
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    }
+
+
 }

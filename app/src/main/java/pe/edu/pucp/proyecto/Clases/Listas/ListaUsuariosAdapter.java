@@ -3,6 +3,7 @@ package pe.edu.pucp.proyecto.Clases.Listas;
 import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,8 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
         return infoUsuarioViewHolder;
     }
 
+    int color=0;
+
     @Override
     public void onBindViewHolder(@NonNull InfoUsuarioViewHolder holder, int position) {
 
@@ -42,9 +45,17 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
     String nombre=data[position].getNombre();
     String apellido=data[position].getApellido();
 
-    float montoTotal=data[position].getMontoTotal();
+    String montoTotal=data[position].getMontoTotal();
 
-
+    if(color==0){
+        holder.rvImage.setBackgroundColor(Color.parseColor("#5820c1"));
+        holder.mLayout.setBackgroundColor(Color.parseColor("#03A9F4"));
+        color=1;
+    }else{
+        holder.rvImage.setBackgroundColor(Color.parseColor("#EA2268"));
+        holder.mLayout.setBackgroundColor(Color.parseColor("#60CF18"));
+        color=0;
+    }
 
     holder.rvNombre.setText(nombre+" "+apellido);
     holder.rvMontoTotal.setText("S/."+montoTotal);
@@ -89,7 +100,7 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
             this.rvNombre=itemView.findViewById(R.id.rvNombre);
             this.rvMontoTotal=itemView.findViewById(R.id.rvMontoTotal);
             this.rvImage=itemView.findViewById(R.id.rvImage);
-            this.mLayout= itemView.findViewById(R.id.mLayout);
+            this.mLayout= itemView.findViewById(R.id.mLayoutUsuario);
 
         }
     }

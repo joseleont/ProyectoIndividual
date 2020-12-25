@@ -45,7 +45,7 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
         setContentView(R.layout.activity_pantalla_principal_vendedor);
 
         listenerFb = new ListenerFb();
-        databaseReference.child("Clientes").addChildEventListener(listenerFb);
+        databaseReference.child("Usuarios").addChildEventListener(listenerFb);
 
 
     }
@@ -76,7 +76,7 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
         Log.d("infoApp","onRESUME");
         if(a==1){
             listenerFb=new ListenerFb();
-            databaseReference.child("Clientes").addChildEventListener(listenerFb);
+            databaseReference.child("Usuarios").addChildEventListener(listenerFb);
             arrayUsuarios=new ArrayList<>();
             a=0;
         }
@@ -125,7 +125,6 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
                 startActivity(intentMenuSalirCliente);
                 finish();
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -169,7 +168,6 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
                     }
 
                     adapter=new ListaUsuariosAdapter(arregloUsuarios,PantallaPrincipalVendedor.this);
-
 
                     //adapter.notifyItemChanged(a);
                     iniciarRecyclerView();
