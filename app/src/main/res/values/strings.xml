@@ -5,4 +5,27 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text">text</string>
+    <string name="producto">Producto</string>
+    <string name="precio">Precio</string>
+    <string name="monto">Monto</string>
+
+    <string name="monto_total">Monto Total</string>
+    <string name="precio_c_u">Precio (c/u)</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="detalles_del_producto">Detalles del producto</string>
+    <string name="descripcion">Descripcion</string>
+
+    <string name="textview">TextView</string>
+    <string name="realizar_pago">Realizar Pago</string>
+    <string name="lista_de_productos">Lista de productos</string>
+    <string name="ver_lista_de_productos">Ver Lista de Productos</string>
+    <string name="ver_historial_de_pagos">Ver Historial de Pagos</string>
+    <string name="deuda_pendiente">Deuda Pendiente</string>
+    <string name="ver_deudas_saldadas">Ver Deudas Saldadas</string>
+    <string name="ver_deudas_pendientes">Ver Deudas Pendientes</string>
+    <string name="lista_de_deudas_pendientes">Lista de Deudas Pendientes</string>
+    <string name="nombre_cliente">Nombre Cliente</string>
+    <string name="agregar_deuda">AGREGAR DEUDA</string>
+    <string name="historial_de_pagos">HISTORIAL DE PAGOS</string>
+    <string name="lista_de_producto">LISTA DE PRODUCTOS</string>
 </resources>

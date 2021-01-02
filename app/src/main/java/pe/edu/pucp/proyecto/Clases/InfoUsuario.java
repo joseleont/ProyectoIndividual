@@ -6,19 +6,28 @@ public class InfoUsuario {
 
     private String usuario;
     private String nombre;
-    private String apellido;
+
     private String contraseña;
     private String correo;
     private String numeroTelefonico;
 
     private String tipo;
 
+    private String uid;
 
 
     private String montoTotal;
 
     private String apodo;
 
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getTipo() {
         return tipo;
@@ -73,13 +82,6 @@ public class InfoUsuario {
     }
 
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
 
 
     public String getCorreo() {

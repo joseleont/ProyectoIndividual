@@ -17,6 +17,7 @@ import pe.edu.pucp.proyecto.Dialogos_Fragmentos.MenuAyuda;
 import pe.edu.pucp.proyecto.R;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,7 +39,7 @@ import java.util.Calendar;
 public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.ProductoDialogListener {
 
 
-    ArrayList<Deuda> arrayDeuda=new ArrayList<>();
+    ArrayList<Deuda> arrayDeuda=new ArrayList<>();   //se llena en la funcion Pasar productos
 
     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
     DatabaseReference databaseReferenceCantidadDeDeudas= FirebaseDatabase.getInstance().getReference();
@@ -54,7 +55,7 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
     Listener listener = new Listener();
 
 
-    String usuario;
+    String uid;
     String nombre;
 
     String fecha;
@@ -71,19 +72,21 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_deuda);
 
-
-
-
         Intent intent=getIntent();
-        usuario=intent.getStringExtra("usuario");
+        uid=intent.getStringExtra("uid");
         nombre=intent.getStringExtra("nombre");
 
 
-        //OBTENER LA CANTIDAD DE DEUDAS
-        databaseReferenceCantidadDeDeudas.child("Usuarios").child(usuario+"_"+nombre).child("Deuda").child("CantidadDeDeudas").addValueEventListener(listenerFb);
 
+
+        Log.d("infoApp",uid);
         //OBTENER EL MONTO TOTAL
-        databaseReferenceMontoTotal.child("Usuarios").child(usuario+"_"+nombre).child("montoTotal").addValueEventListener(listener);
+        databaseReferenceMontoTotal.child("Usuarios").child(uid).child("montoTotal").addValueEventListener(listener);
+
+        Log.d("infoApp","hola");
+        //OBTENER LA CANTIDAD DE DEUDAS
+        databaseReferenceCantidadDeDeudas.child("Usuarios").child(uid).child("CantidadDeDeudas").addValueEventListener(listenerFb);
+
 
 
         TextView textViewFecha =findViewById(R.id.textViewFecha);
@@ -127,17 +130,19 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
 
 
     public void agregarProducto(View view){
+        //ABRIR EL FRAGMENTO AGREGAR PRODUCTOS
         AgregarProducto agregarProducto=new AgregarProducto();
         agregarProducto.show(getSupportFragmentManager(),"producto");
+
+
     }
 
     //metodo de la interfaz de AgregarProducto
     @Override
     public void pasarProducto(String producto, int cantidad, float precio, String descripcion) {
-
+      //RELLENA EL array de deudas
         Deuda deuda=new Deuda(producto,cantidad,precio,descripcion);
         arrayDeuda.add(deuda);
-
         iniciarRecyclerView();
 
     }
@@ -156,10 +161,14 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
     //ESTA FUNCION ES LLAMDA DESDE EL FRAGMENTO DEL TIMEPICKER
     public void respuestaDatePicker(int year, int month,int day){
         TextView textViewFecha =findViewById(R.id.textViewFecha);
-        textViewFecha.setText(day+"-"+(month+1)+"-"+year);
+        fecha=day+"-"+(month+1)+"-"+year;
+        textViewFecha.setText(fecha);
     }
 
+
     public void guardar(View view){
+
+        databaseReferenceMontoTotal.removeEventListener(listener);
 
         //GUARDAR EN LA BASE DE DATOS
 
@@ -169,14 +178,14 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
         for(int pos=0;pos<arregloDeuda.length;pos++){
             arregloDeuda[pos].setPrecio(Math.round(arregloDeuda[pos].getPrecio()* 100) / 100f); //LIMITAR LOS DECIMALES
             montoDeuda=montoDeuda+arregloDeuda[pos].getPrecio()*arregloDeuda[pos].getCantidad();
-            databaseReference.child("Usuarios").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("Producto").child("Producto"+(pos+1)).setValue(arregloDeuda[pos]);
+            databaseReference.child("Usuarios").child(uid).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("Producto").child("Producto"+(pos+1)).setValue(arregloDeuda[pos]);
+            databaseReference.child("Usuarios").child(uid).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("identificador").setValue(String.valueOf(cantidadDeudas+1));
         }
+
         //GUARDAR FECHA
-        databaseReferenceFecha.child("Usuarios").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("Fecha").setValue(fecha);
+        databaseReferenceFecha.child("Usuarios").child(uid).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("Fecha").setValue(fecha);
 
-        databaseReferenceFecha.child("Usuarios").child(usuario+"_"+nombre).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("MontoDeuda").setValue(String.valueOf(Math.round(montoDeuda * 100) / 100f));
-
-
+        databaseReferenceFecha.child("Usuarios").child(uid).child("Deuda").child("Deuda"+(cantidadDeudas+1)).child("MontoDeuda").setValue(String.valueOf(Math.round(montoDeuda * 100) / 100f));
 
         actualizarMontoTotal();
 
@@ -189,7 +198,7 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
     public void guardarCantidadDeDeudas(){
         String a= String.valueOf(cantidadDeudas+1);
 
-       databaseReferenceGuardarCantidadDeDeudas.child("Usuarios").child(usuario+"_"+nombre).child("Deuda").child("CantidadDeDeudas").setValue(a);
+       databaseReferenceGuardarCantidadDeDeudas.child("Usuarios").child(uid).child("CantidadDeDeudas").setValue(a);
     }
 
     public void actualizarMontoTotal(){
@@ -199,7 +208,7 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
         Log.d("SUMA",montoDeuda +"+"+montoTotal +"="+(montoTotal+montoDeuda));
         String b= String.valueOf(c);
         //ACTUALIZAR EL MONTO TOTAL
-        databaseReferenceMontoTotal.child("Usuarios").child(usuario+"_"+nombre).child("montoTotal").setValue(b);
+        databaseReferenceMontoTotal.child("Usuarios").child(uid).child("montoTotal").setValue(b);
 
     }
 
@@ -211,7 +220,7 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
         arregloDeuda=arrayDeuda.toArray(arregloDeuda);
 
         //COLOCAR UNA ARRELGO DE arregloDeuda AHI
-        ListaDeudasAdapter adapter=new ListaDeudasAdapter(arregloDeuda,NuevaDeuda.this);
+        ListaDeudasAdapter adapter=new ListaDeudasAdapter(arregloDeuda,NuevaDeuda.this,"NuevaDeuda");
         RecyclerView recyclerView=findViewById(R.id.rvDeuda);
 
         recyclerView.setAdapter(adapter);
@@ -229,12 +238,15 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             if(snapshot.getValue()!=null){
 
-                //Log.d("infoApp",snapshot.getValue().toString());
-
-                cantidadDeudas= Integer.parseInt(String.valueOf(snapshot.getValue()));
-                //SE TRANSFORMA DE UN OBJETO A STRING
-                //SE TRANSOFRMA DE UN STRING A INT
-
+                if((snapshot.getValue().toString()+"").equals("null")){
+                    //EN CASO NO SE TENGA NINGUNA cantidad, se considera como 0
+                    cantidadDeudas=0;
+                }
+                else{
+                    cantidadDeudas= Integer.parseInt(String.valueOf(snapshot.getValue()));
+                    //SE TRANSFORMA DE UN OBJETO A STRING
+                    //SE TRANSOFRMA DE UN STRING A INT
+                }
             }
 
         }
@@ -246,16 +258,22 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
     }
 
 
-    //se obtiene la cantidad de deudas
+    //se obtiene la montoTotal
     private class Listener implements ValueEventListener {
 
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             if(snapshot.getValue()!=null){
 
-                montoTotal= Float.parseFloat(String.valueOf(snapshot.getValue()));
-                Log.d("infoApp",""+montoTotal);
 
+                if((snapshot.getValue().toString()+"").equals("null")){
+                    //EN CASO NO SE TENGA NINGUN monto, se considera como 0
+                    montoTotal=0;
+                }
+                else{
+                    montoTotal= Float.parseFloat(String.valueOf(snapshot.getValue()));
+                    Log.d("infoApp",""+montoTotal);
+                }
             }
         }
 

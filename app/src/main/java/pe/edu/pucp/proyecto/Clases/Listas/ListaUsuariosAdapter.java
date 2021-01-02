@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,6 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
 
         //MODIFICAR EL VIEW
     String nombre=data[position].getNombre();
-    String apellido=data[position].getApellido();
 
     String montoTotal=data[position].getMontoTotal();
 
@@ -57,19 +57,27 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
         color=0;
     }
 
-    holder.rvNombre.setText(nombre+" "+apellido);
-    holder.rvMontoTotal.setText("S/."+montoTotal);
+    holder.rvNombre.setText(nombre);
+    if((montoTotal+"").equals("null")){
+        holder.rvMontoTotal.setText("S/. 0");
+    }else{
+        holder.rvMontoTotal.setText("S/."+montoTotal);
+    }
+
     holder.mLayout.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
+
             //ABRE LA PANTALLA ´PARA VER TODAS LAS DEUDAS DEL USUARIO
             //SE ABRE PRESIONANDO UN USUARIO DEL RECYCLERVIEW DE LA PANTALLA PRINCIPAL DEL VENDEDOR
             Intent intent = new Intent(contexto, PantallaListaDeudasDelCliente.class);
-            intent.putExtra("usuario", data[position].getUsuario());
+
+            intent.putExtra("uid", data[position].getUid());
+            Log.d("infoAppLU","DD "+data[position].getUid());
             intent.putExtra("nombre", data[position].getNombre());
-            intent.putExtra("apellido", data[position].getApellido());
-            intent.putExtra("montoTotal", data[position].getMontoTotal());
+            Log.d("infoAppLU","DD "+data[position].getNombre());
+           // intent.putExtra("montoTotal", data[position].getMontoTotal());
             contexto.startActivity(intent);
 
         }

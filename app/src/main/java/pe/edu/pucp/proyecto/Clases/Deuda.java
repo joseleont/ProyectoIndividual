@@ -14,6 +14,10 @@ public class Deuda {
         this.descripcion = descripcion;
     }
 
+    public Deuda(){
+
+    }
+
     public String getProducto() {
         return producto;
     }

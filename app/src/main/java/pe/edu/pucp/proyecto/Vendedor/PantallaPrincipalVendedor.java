@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PantallaPrincipalVendedor extends AppCompatActivity {
 
@@ -32,12 +35,10 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
 
     //LISTA DE USUARIOS
-    ArrayList<InfoUsuario> arrayUsuarios=new ArrayList<>();;
+    ArrayList<InfoUsuario> arrayUsuarios=new ArrayList<>();
 
 
     ListenerFb listenerFb;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
 
         listenerFb = new ListenerFb();
         databaseReference.child("Usuarios").addChildEventListener(listenerFb);
+
 
 
     }
@@ -115,15 +117,14 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
 
             case R.id.menuSalirVendedor:
 
-                SharedPreferences sharedPreferences=getSharedPreferences("Login", MODE_PRIVATE);
-                SharedPreferences.Editor edit=sharedPreferences.edit();
-
-                edit.putString("Login",""); //SE VACIA EL ARCHIVO PREFERENCE
-                edit.apply();
-
-                Intent intentMenuSalirCliente = new Intent( this , MainActivity.class);
-                startActivity(intentMenuSalirCliente);
-                finish();
+                AuthUI instance = AuthUI.getInstance();
+                instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        startActivity(new Intent(PantallaPrincipalVendedor.this,MainActivity.class));
+                        finish();
+                    }
+                });
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -139,8 +140,11 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
             if (snapshot.getValue() != null) {
                 InfoUsuario infoUsuario2 = snapshot.getValue(InfoUsuario.class);
 
-                arrayUsuarios.add(infoUsuario2);
-                //SE ALMACENA LA LISTA DE USUARIOS
+                if(infoUsuario2.getTipo().equals("cliente")){
+                    arrayUsuarios.add(infoUsuario2);
+                    //Log.d("infoApp",infoUsuario2.getUid());
+                    //SE ALMACENA LA LISTA DE USUARIOS CLIENTES
+                }
             }
              iniciarRecyclerView();
 
@@ -158,11 +162,12 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
                     int a;
                     for( a=0;a<arrayUsuarios.size();a++){
 
-                        if(arregloUsuarios[a].getUsuario().equals(infoUsuario2.getUsuario())){
+                        if(arregloUsuarios[a].getUid().equals(infoUsuario2.getUid())){
 
                             arregloUsuarios[a].setNombre(infoUsuario2.getNombre());
-                            arregloUsuarios[a].setApellido(infoUsuario2.getApellido());
+                           // arregloUsuarios[a].setApellido(infoUsuario2.getApellido());
                             arregloUsuarios[a].setMontoTotal(infoUsuario2.getMontoTotal());
+                            arregloUsuarios[a].setUid(infoUsuario2.getUid());
                             break;
                         }
                     }

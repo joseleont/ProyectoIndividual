@@ -2,12 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pe.edu.pucp.proyecto">
 
+    <queries>
+
+    </queries>
+
     <uses-feature
         android:name="android.hardware.camara"
         android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,28 +22,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto">
-        <activity android:name=".Vendedor.pantallaRegistrarPagos"></activity>
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/file_paths" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="pe.edu.pucp.proyecto.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".Vendedor.PantallaRegistrarPagos" />
         <activity
             android:name=".Vendedor.NuevaDeuda"
             android:parentActivityName=".Vendedor.PantallaListaDeudasDelCliente" />
         <activity android:name=".Vendedor.PantallaListaDeudasDelCliente" />
-        <activity android:name=".Vendedor.PantallaPrincipalVendedor">
-
-        </activity>
+        <activity android:name=".Vendedor.PantallaPrincipalVendedor"></activity>
         <activity android:name=".cliente.PantallaPrincipalCliente" />
-        <activity android:name=".cliente.RegistroNewUsuario">
-
-        </activity>
+        <activity android:name=".cliente.RegistroNewUsuario"></activity>
         <activity android:name=".cliente.ModificarPerfil" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

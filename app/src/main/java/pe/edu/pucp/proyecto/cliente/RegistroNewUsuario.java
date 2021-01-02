@@ -134,7 +134,7 @@ public class RegistroNewUsuario extends AppCompatActivity {
 
             usuarioClase.setUsuario(usuario.getText().toString());
             usuarioClase.setNombre(nombre.getText().toString());
-            usuarioClase.setApellido(apellido.getText().toString());
+
             usuarioClase.setContraseña(contraseña.getText().toString());
             usuarioClase.setTipo("cliente");
 
@@ -149,7 +149,7 @@ public class RegistroNewUsuario extends AppCompatActivity {
 
                     edit.putString("Login",usuario.getText().toString());
                     edit.apply();
-                    Toast.makeText(RegistroNewUsuario.this,"Bienvenido "+nombre.getText().toString()+" "+apellido.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistroNewUsuario.this,"Bienvenido "+nombre.getText().toString(),Toast.LENGTH_SHORT).show();
 
                     finish(); //CERRAR LA PANTALLA
                 }

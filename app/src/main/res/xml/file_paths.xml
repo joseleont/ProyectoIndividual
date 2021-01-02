@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Paths xmlns:android="http://schemas.android.com/apk/res/android">
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <external-files-path name="my_images" path="Android/data/pe.edu.pucp.camara/fotos/Pictures" />
-//SE CREA LA CARPETA DONDE SE  GUARDARAN LAS IMAGENES
+
+    <external-files-path
+        name="my_images"
+        path="." ></external-files-path>
+
+
 </Paths>

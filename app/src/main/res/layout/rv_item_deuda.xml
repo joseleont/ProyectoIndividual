@@ -2,80 +2,93 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mLayoutDeuda"
-    android:layout_width="match_parent"
+    android:id="@+id/mLayoutDeuda2"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#A455E43B"
-    android:padding="8dp">
+    android:background="#A4FFFFFF"
+    android:padding="4dp">
 
-    <TextView
-        android:id="@+id/rvCantidad"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mLayoutDeuda"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="28dp"
-        android:text="Cantidad"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/rvPrecio"
-        app:layout_constraintStart_toEndOf="@+id/rvProducto"
-        app:layout_constraintTop_toTopOf="@+id/rvPrecio"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/rvProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="8dp"
-        android:text="Producto"
-        app:layout_constraintBottom_toTopOf="@+id/rvPrecio"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="65dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="4dp"
-        android:background="#00C5D3C0"
-        android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_action_producto" />
-
-    <TextView
-        android:id="@+id/rvPrecioTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="S/.PRECIO TOTAL"
+        android:background="#A455E43B"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/rvPrecio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="S/.c/u"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/rvProducto"
-        app:layout_constraintStart_toStartOf="@+id/rvProducto" />
+        <TextView
+            android:id="@+id/rvProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:text="Producto"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Precio Total"
-        app:layout_constraintEnd_toEndOf="@+id/rvPrecioTotal"
-        app:layout_constraintStart_toStartOf="@+id/rvPrecioTotal"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/rvPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="S/.c/u"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rvProducto"
+            app:layout_constraintTop_toBottomOf="@+id/rvProducto"
+            app:layout_constraintVertical_bias="0.47" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="168dp"
+            android:layout_marginTop="8dp"
+            android:text="Precio Total"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="65dp"
+            android:layout_height="67dp"
+            android:layout_marginStart="16dp"
+            android:background="#00C5D3C0"
+            android:contentDescription="TODO"
+            android:padding="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_action_producto" />
+
+        <TextView
+            android:id="@+id/rvPrecioTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="S/.PRECIO TOTAL"
+            app:layout_constraintEnd_toEndOf="@+id/textView6"
+            app:layout_constraintHorizontal_bias="0.513"
+            app:layout_constraintStart_toStartOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <TextView
+            android:id="@+id/rvCantidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:text="Cantidad"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rvPrecio"
+            app:layout_constraintTop_toTopOf="@+id/rvPrecio"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

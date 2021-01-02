@@ -127,7 +127,6 @@ public class AgregarProducto extends DialogFragment {
     }
 
 
-
     //SE CREA UNA INTERFAZ PARA CREAR EL METODO QUE SE IMPLEMENTA EN LA ACTIVIDAD NuevaDeuda
     //DE ESTA MANERA, SE LE PUEDE DAR LOS DATOS OBTENIDOS DEL FRAGMENTO Y MANDARSELO AL ACTIVITY QUE LO ABRIO
     public interface ProductoDialogListener{

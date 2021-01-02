@@ -2,6 +2,7 @@ package pe.edu.pucp.proyecto.Dialogos_Fragmentos;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -44,25 +45,55 @@ public class DialogoModificarImagenPerfil extends DialogFragment {
 
         Button btnCamara =v.findViewById(R.id.btnCamaraPerfil);
 
+        Button btnGaleria=v.findViewById(R.id.btnGaleriaPerfil);
+
         btnCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
 
-
-                int REQUEST_IMAGE_CAPTURE = 1;
-                //ABRE LA APLICACION DE FOTOS Y TOMA UNA FOTO
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                    Log.d("infoApp","SE TOMO UNA FOTO YEAH");
-                }
+                cambioImagenPerfil.opcionEscogida("camara");
 
 
             }
         });
+
+        btnGaleria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                cambioImagenPerfil.opcionEscogida("galeria");
+
+                dismiss();
+            }
+        });
+
+
+
         return builder.create();
     }
+
+
+    CambioImagenPerfil cambioImagenPerfil;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        cambioImagenPerfil= (CambioImagenPerfil) context;
+        //SE OBTIENE EL context de la actividad que lo abrio
+        //SE OBTIENE CUANDO SE ABRIO EL FRAGMENTO
+    }
+
+
+    //SE CREA UNA INTERFAZ PARA CREAR EL METODO QUE SE IMPLEMENTA EN LA ACTIVIDAD NuevaDeuda
+    //DE ESTA MANERA, SE LE PUEDE DAR LOS DATOS OBTENIDOS DEL FRAGMENTO Y MANDARSELO AL ACTIVITY QUE LO ABRIO
+    public interface CambioImagenPerfil{
+
+        void opcionEscogida(String app);
+    }
+
+
 
 
 }
