@@ -115,7 +115,7 @@
                     android:layout_height="match_parent"
                     android:ems="10"
                     android:hint="Descripción"
-                    android:inputType="textPersonName" />
+                    android:inputType="textMultiLine|textPersonName" />
             </LinearLayout>
         </ScrollView>
 

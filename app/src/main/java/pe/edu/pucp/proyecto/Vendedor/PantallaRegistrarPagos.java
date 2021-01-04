@@ -202,6 +202,12 @@ public class PantallaRegistrarPagos extends AppCompatActivity implements Fragmen
         Button btn3=findViewById(R.id.btnPRPVerHistorial);
         btn3.setVisibility(View.VISIBLE);
 
+
+        if(cliente.equals("cliente")){
+            Button btn =findViewById(R.id.btnDisminuirDeuda);
+            btn.setVisibility(View.INVISIBLE);
+        }
+
         b=1;
     }
 

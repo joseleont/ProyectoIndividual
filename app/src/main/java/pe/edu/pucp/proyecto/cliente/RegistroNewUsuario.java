@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,7 +62,6 @@ public class RegistroNewUsuario extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
         databaseReference.removeEventListener(listenerFbLectura);
         a=1;
     }
@@ -78,19 +78,22 @@ public class RegistroNewUsuario extends AppCompatActivity {
 
 
     public void btnCancelar(View view){
-        finish();
+        startActivity(new Intent(RegistroNewUsuario.this, PantallaPrincipalVendedor.class));
+
+        finish(); //CERRAR LA PANTALLA
     }
 
 
     public void btnCrearCuenta(View view){
 
 
-        EditText usuario=findViewById(R.id.editTextUsuarioRegistro);
+
         EditText nombre=findViewById(R.id.editTextNombreRegistro);
         EditText apellido=findViewById(R.id.editTextApellidoRegistro);
-        EditText contraseña=findViewById(R.id.editTextContraseñaRegistro);
 
 
+        /*
+        EditText usuario=findViewById(R.id.editTextUsuarioRegistro);
         if (usuario.getText().toString().isEmpty()){
             usuario.setError("Debe ingresar un usuario");
             error=1;
@@ -104,6 +107,8 @@ public class RegistroNewUsuario extends AppCompatActivity {
             }
         }
 
+       */
+
         if (nombre.getText().toString().isEmpty()){
             nombre.setError("Debe ingresar un nombre");
             error=1;
@@ -112,17 +117,12 @@ public class RegistroNewUsuario extends AppCompatActivity {
             apellido.setError("Debe ingresar un apellido");
             error=1;
         }
-        if (contraseña.getText().toString().isEmpty()){
-            contraseña.setError("Debe ingresar un contraseña");
-            error=1;
-        }
-
 
         //VERIFICAR SI EL USUARIO INGRESADO YA EXISTE
         for(int i=0;i<arrayUsuarios.size();i++){
-            if(usuario.getText().toString().equals(arrayUsuarios.get(i).getUsuario())){
+            if(nombre.getText().toString().equals(arrayUsuarios.get(i).getNombre())){
                 error=2;
-                usuario.setError("Este usuario ya existe, debe elegir uno nuevo");
+                nombre.setError("Ya se encuentra registrado esta persona, debe ingresar uno nuevo");
                 break;
             }
         }
@@ -132,24 +132,19 @@ public class RegistroNewUsuario extends AppCompatActivity {
             //GUARDAR INFORMACION
             InfoUsuario usuarioClase =new InfoUsuario();
 
-            usuarioClase.setUsuario(usuario.getText().toString());
-            usuarioClase.setNombre(nombre.getText().toString());
-
-            usuarioClase.setContraseña(contraseña.getText().toString());
+            usuarioClase.setUsuario("creado");
+            usuarioClase.setNombre(nombre.getText().toString()+ " "+apellido.getText().toString());
+            usuarioClase.setMontoTotal("0");
+            usuarioClase.setCantDeudas("0");
             usuarioClase.setTipo("cliente");
 
 
-            databaseReference.child("Usuarios").child(usuario.getText().toString()+"_"+nombre.getText().toString()).setValue(usuarioClase).addOnSuccessListener(new OnSuccessListener<Void>() {
+            databaseReference.child("Usuarios").push().setValue(usuarioClase).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
 
-                    //CONFIGURACION PARA PERMANECER LA CUENTA LOGEADA
-                    SharedPreferences sharedPreferences=getSharedPreferences("Login", MODE_PRIVATE);
-                    SharedPreferences.Editor edit=sharedPreferences.edit();
-
-                    edit.putString("Login",usuario.getText().toString());
-                    edit.apply();
-                    Toast.makeText(RegistroNewUsuario.this,"Bienvenido "+nombre.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistroNewUsuario.this,"Se agrego este usuario",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(RegistroNewUsuario.this, PantallaPrincipalVendedor.class));
 
                     finish(); //CERRAR LA PANTALLA
                 }
@@ -161,7 +156,7 @@ public class RegistroNewUsuario extends AppCompatActivity {
                 }
             });
 
-           databaseReference.child("Usuarios").child(usuario.getText().toString()+"_"+nombre.getText().toString()).child("Deuda").child("CantidadDeDeudas").setValue("0");
+
         }
 
 

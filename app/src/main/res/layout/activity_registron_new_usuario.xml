@@ -7,35 +7,11 @@
     tools:context=".cliente.RegistroNewUsuario">
 
     <EditText
-        android:id="@+id/editTextContraseñaRegistro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="Contraseña"
-        android:inputType="textPersonName|textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextApellidoRegistro"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextApellidoRegistro"
-        app:layout_constraintTop_toBottomOf="@+id/editTextApellidoRegistro" />
-
-    <EditText
-        android:id="@+id/editTextUsuarioRegistro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="Nombre de Usuario"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
         android:id="@+id/editTextApellidoRegistro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Apellido"
         android:inputType="textPersonName"
@@ -48,38 +24,49 @@
         android:id="@+id/editTextNombreRegistro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="Nombre"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/editTextUsuarioRegistro"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextUsuarioRegistro"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsuarioRegistro" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <Button
         android:id="@+id/btnCrearCuenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="80dp"
         android:onClick="btnCrearCuenta"
         android:text="CREAR CUENTA"
-        app:layout_constraintEnd_toEndOf="@+id/editTextContraseñaRegistro"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextContraseñaRegistro"
-        app:layout_constraintTop_toBottomOf="@+id/editTextContraseñaRegistro" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextApellidoRegistro"
+        app:layout_constraintTop_toBottomOf="@+id/editTextApellidoRegistro" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:onClick="btnCancelar"
-        android:text="CANCELAR"
+        android:text="@string/cancelar"
         app:layout_constraintBottom_toBottomOf="@+id/btnCrearCuenta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.241"
-        app:layout_constraintStart_toEndOf="@+id/btnCrearCuenta"
+        app:layout_constraintEnd_toStartOf="@+id/btnCrearCuenta"
+        app:layout_constraintHorizontal_bias="0.66"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnCrearCuenta"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="161dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/perfil" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

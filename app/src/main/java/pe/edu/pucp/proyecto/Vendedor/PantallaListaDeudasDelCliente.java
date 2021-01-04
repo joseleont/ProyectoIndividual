@@ -1,14 +1,10 @@
 package pe.edu.pucp.proyecto.Vendedor;
 
-import pe.edu.pucp.proyecto.Clases.Deuda;
 import pe.edu.pucp.proyecto.Clases.DeudaGeneral;
-import pe.edu.pucp.proyecto.Clases.InfoUsuario;
 import pe.edu.pucp.proyecto.Clases.Listas.ListaDeudasSinPagarAdapter;
-import pe.edu.pucp.proyecto.Clases.Listas.ListaUsuariosAdapter;
 import pe.edu.pucp.proyecto.MainActivity;
 import pe.edu.pucp.proyecto.R;
 import pe.edu.pucp.proyecto.cliente.ModificarPerfil;
-import pe.edu.pucp.proyecto.cliente.PantallaPrincipalCliente;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,8 +37,9 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
 
     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
 
-    ArrayList<DeudaGeneral> arrayDeudas=new ArrayList<>();
 
+    ArrayList<DeudaGeneral> arrayDeudasPendientes=new ArrayList<>();
+    ArrayList<DeudaGeneral> arrayDeudasSaldadas=new ArrayList<>();
 
     String usuario;
     String nombre;
@@ -70,6 +67,7 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
         cliente=intent.getStringExtra("cliente")+"";
 
 
+
         //ES LA PAGINA PRINCIPAL DEL CLIENTE
         if(cliente.equals("cliente")){
             Button btn=findViewById(R.id.btnPLDAgregarDeuda);
@@ -86,10 +84,13 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
         TextView info=findViewById(R.id.textInfoCliente);
         info.setText(nombre);
 
+        //LISTA DE DEUDAS PENDIENTES
         listenerFb = new ListenerFb();
         databaseReference.child("Usuarios").child(uid).child("Deuda").addChildEventListener(listenerFb);
 
+        //LISTA DE PAGOS REALIZADOS
         listener = new Listener();
+        databaseReference.child("Usuarios").child(uid).child("Pagos").addChildEventListener(listener);
 
 
 
@@ -151,7 +152,7 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
                 Log.d("infoAppB",""+tempo);
                 if(tempo==sinRep[r]){
                     arregloDeudasGeneralesOrdenado[pos]=arreglo[Ra];
-                    Log.d("infoAppB",arregloDeudasGenerales[pos].getFecha());
+                    Log.d("infoAppB",arregloDeudasGeneralesPendientes[pos].getFecha());
                     pos=pos+1;
                 }
             }
@@ -182,28 +183,35 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
 
 
     ListaDeudasSinPagarAdapter adapter;
-    DeudaGeneral[] arregloDeudasGenerales;
+
     DeudaGeneral[] arregloDeudasGeneralesOrdenado;
+
+    DeudaGeneral[] arregloDeudasGeneralesPendientes;
+    DeudaGeneral[] arregloDeudasGeneralesSaldadas;
 
     public void iniciarRecyclerView(int i) {
         //COLOCAR UN ARREGLO DE DEUDAS
-        arregloDeudasGenerales = new DeudaGeneral[arrayDeudas.size()];
-        arregloDeudasGenerales = arrayDeudas.toArray(arregloDeudasGenerales);
 
         //AQUI DISTINGUE DONDE SE CREO EL RECYCLERVIEW
         // si es 1 entonces se abrio desde una deuda pendiente
         //si es 2, entonces se abrio desde una deuda saldada
         if(i==1){
-            arregloDeudasGeneralesOrdenado = new DeudaGeneral[arrayDeudas.size()];
-            arregloDeudasGeneralesOrdenado = arrayDeudas.toArray(arregloDeudasGeneralesOrdenado);
-            ordenarPorFecha(arregloDeudasGenerales);
+            arregloDeudasGeneralesPendientes = new DeudaGeneral[arrayDeudasPendientes.size()];
+            arregloDeudasGeneralesPendientes = arrayDeudasPendientes.toArray(arregloDeudasGeneralesPendientes);
+
+            arregloDeudasGeneralesOrdenado = new DeudaGeneral[arrayDeudasPendientes.size()];
+            arregloDeudasGeneralesOrdenado = arrayDeudasPendientes.toArray(arregloDeudasGeneralesOrdenado);
+            ordenarPorFecha(arregloDeudasGeneralesPendientes);
 
             adapter=new ListaDeudasSinPagarAdapter(arregloDeudasGeneralesOrdenado,PantallaListaDeudasDelCliente.this,"Pendientes",cliente);
 
 
         }else{
+            arregloDeudasGeneralesSaldadas = new DeudaGeneral[arrayDeudasSaldadas.size()];
+            arregloDeudasGeneralesSaldadas = arrayDeudasSaldadas.toArray(arregloDeudasGeneralesSaldadas);
+
             Log.d("mensaje","Se envio pagados");
-            adapter=new ListaDeudasSinPagarAdapter(arregloDeudasGenerales,PantallaListaDeudasDelCliente.this,"Pagados",cliente);
+            adapter=new ListaDeudasSinPagarAdapter(arregloDeudasGeneralesSaldadas,PantallaListaDeudasDelCliente.this,"Pagados",cliente);
         }
 
         RecyclerView recyclerView=findViewById(R.id.rvListaDeudas); //id del recylcer view a utilizar
@@ -212,49 +220,49 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
 
     }
 
+    int a=0;
     @Override
     protected void onPause() {
         super.onPause();
         databaseReference.removeEventListener(listenerFb);
         databaseReference.removeEventListener(listener);
-        a=1;
+      a=1;
     }
 
-    int a=0;
-    int b=0;
+
     @Override
     protected void onResume() {
         super.onResume();
-        if(a==1){
-            if(b==0){
-                listenerFb=new ListenerFb();
-                databaseReference.child("Usuarios").child(uid).child("Deuda").addChildEventListener(listenerFb);
-                arrayDeudas=new ArrayList<>();
-            }
 
-            else{
-                listener=new Listener();
-                databaseReference.child("Usuarios").child(uid).child("Pagos").addChildEventListener(listener);
-                arrayDeudas=new ArrayList<>();
-            }
-            a=0;
-        }
+           if(a==1){
+               listenerFb=new ListenerFb();
+               databaseReference.child("Usuarios").child(uid).child("Deuda").addChildEventListener(listenerFb);
+               arrayDeudasPendientes=new ArrayList<>();
+
+               listener=new Listener();
+               databaseReference.child("Usuarios").child(uid).child("Pagos").addChildEventListener(listener);
+               arrayDeudasSaldadas=new ArrayList<>();
+               a=0;
+           }
+
+        Button btnSaldado = findViewById(R.id.btnPLDCDeudasSaldadas);
+        Button btnPendiente = findViewById(R.id.btnPLDCDeudasPendientes);
+        btnPendiente.setVisibility(View.INVISIBLE);
+        btnSaldado.setVisibility(View.VISIBLE);
+
+
 
     }
 
     public void verDeudasPendientes(View view){
     //PRIMER BOTON PARA SER PRESIONADO
-        //SE ELIMINA EL LISTENER de
 
-        databaseReference.removeEventListener(listener);
-        arrayDeudas=new ArrayList<>();
 
-        databaseReference.child("Usuarios").child(uid).child("Deuda").addChildEventListener(listenerFb);
-        Button btnSaldado = findViewById(R.id.btnPLDCDeudasSaldadas);
+       Button btnSaldado = findViewById(R.id.btnPLDCDeudasSaldadas);
         Button btnPendiente = findViewById(R.id.btnPLDCDeudasPendientes);
         btnSaldado.setVisibility(View.VISIBLE);
         btnPendiente.setVisibility(View.INVISIBLE);
-        b=0;
+
 
         TextView textIdentificacionLista=findViewById(R.id.textIdentificacionLista);
         textIdentificacionLista.setText("Lista de Deudas Pendientes");
@@ -263,20 +271,18 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
             Button btn=findViewById(R.id.btnPLDAgregarDeuda);
             btn.setVisibility(View.VISIBLE);
         }
+        iniciarRecyclerView(1);
 
     }
 
     public void verDeudasSaldadas(View view){
-        databaseReference.removeEventListener(listenerFb);
-        arrayDeudas=new ArrayList<>();
-        iniciarRecyclerView(1);
-        databaseReference.child("Usuarios").child(uid).child("Pagos").addChildEventListener(listener);
+
 
         Button btnSaldado = findViewById(R.id.btnPLDCDeudasSaldadas);
         Button btnPendiente = findViewById(R.id.btnPLDCDeudasPendientes);
         btnPendiente.setVisibility(View.VISIBLE);
         btnSaldado.setVisibility(View.INVISIBLE);
-        b=1;
+
 
         //MODIFICAR LA PANTALLA
         TextView textIdentificacionLista=findViewById(R.id.textIdentificacionLista);
@@ -284,6 +290,7 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
 
         Button btn=findViewById(R.id.btnPLDAgregarDeuda);
         btn.setVisibility(View.INVISIBLE);
+        iniciarRecyclerView(2);
     }
 
 
@@ -299,7 +306,7 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
                     float tmp=Float.parseFloat(deudaGeneral.getMontoDeuda());
                     if(tmp!=0){
                         //LISTA DE DEUDAS
-                        arrayDeudas.add(deudaGeneral);
+                        arrayDeudasPendientes.add(deudaGeneral);
                     }
                     iniciarRecyclerView(1);
                 }
@@ -341,11 +348,11 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
                 if(!(deudaGeneral.getEstado()+"").equals("null")){
                     if((deudaGeneral.getEstado()).equals("completo")){
                         //LISTA DE DEUDAS COMPLETAS
-                        arrayDeudas.add(deudaGeneral);
+                        arrayDeudasSaldadas.add(deudaGeneral);
                         Log.d("infoAppF",deudaGeneral.getEstado()+"buenas0");
                     }
                     Log.d("infoAppF",deudaGeneral.getEstado());
-                    iniciarRecyclerView(2);
+                   // iniciarRecyclerView(2);
                 }
                 Log.d("infoAppF",deudaGeneral.getEstado()+"buenas2");
             }
@@ -354,6 +361,7 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
 
         @Override
         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
 
         }
 
@@ -401,6 +409,7 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
 
                 return true;
             case R.id.menuModificarPerfil:
+                Log.d("infoAppMenu","meunu");
                 Intent intentMenuModificarPerfil = new Intent( this , ModificarPerfil.class);
                 startActivity(intentMenuModificarPerfil);
 

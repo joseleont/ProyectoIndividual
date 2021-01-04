@@ -4,6 +4,8 @@ import pe.edu.pucp.proyecto.Clases.Listas.ListaUsuariosAdapter;
 import pe.edu.pucp.proyecto.Dialogos_Fragmentos.MenuAyuda;
 import pe.edu.pucp.proyecto.MainActivity;
 import pe.edu.pucp.proyecto.R;
+import pe.edu.pucp.proyecto.cliente.ModificarPerfil;
+import pe.edu.pucp.proyecto.cliente.RegistroNewUsuario;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +43,8 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
     //LISTA DE USUARIOS
     ArrayList<InfoUsuario> arrayUsuarios=new ArrayList<>();
 
+    //LItsa de nombreas
+    ArrayList<String> arrayNombres=new ArrayList<>();
 
     ListenerFb listenerFb;
 
@@ -48,7 +56,44 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
         listenerFb = new ListenerFb();
         databaseReference.child("Usuarios").addChildEventListener(listenerFb);
 
+        //SE ALMACENA LA LISTA DE USUARIOS CLIENTES
 
+
+        textAutoComplete = findViewById(R.id.autoComplete);
+
+    }
+    String textoAutoCompletado="";
+    AutoCompleteTextView textAutoComplete;
+
+    public void filtrar(View view){
+
+        textoAutoCompletado=textAutoComplete.getText().toString();
+
+        int posi=0;
+        if(!textoAutoCompletado.equals("")){
+
+            for(int i=0;i<arrayUsuarios.size();i++){
+
+                if(arregloUsuarios[i].getNombre().equals(textoAutoCompletado)){
+                    arregloUsuariosFiltradp[0]=arregloUsuarios[i];
+                    Log.d("infoAppAuto",arregloUsuariosFiltradp[0].getNombre());
+
+                    posi=i;
+                            i=arrayUsuarios.size();
+                }
+
+            }
+
+            //COLOCAR UNA ARRELGO DE INFOUSARIOS AHI
+            adapterFiltrado=new ListaUsuariosAdapter(arregloUsuariosFiltradp,PantallaPrincipalVendedor.this);
+            RecyclerView recyclerView=findViewById(R.id.rvUsuarios);
+
+            recyclerView.setAdapter(adapterFiltrado);
+            recyclerView.setLayoutManager(new LinearLayoutManager(PantallaPrincipalVendedor.this));
+
+        }else{
+                iniciarRecyclerView();
+        }
 
     }
 
@@ -56,6 +101,11 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
 
     ListaUsuariosAdapter adapter;
     InfoUsuario[] arregloUsuarios;
+
+    String[] nombres;
+    InfoUsuario[] arregloUsuariosFiltradp=new InfoUsuario[1];
+    ListaUsuariosAdapter adapterFiltrado;
+
     public void iniciarRecyclerView(){
 
             arregloUsuarios=new InfoUsuario[arrayUsuarios.size()];
@@ -75,7 +125,7 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("infoApp","onRESUME");
+
         if(a==1){
             listenerFb=new ListenerFb();
             databaseReference.child("Usuarios").addChildEventListener(listenerFb);
@@ -131,6 +181,12 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
     }
 
 
+    public void agregarUsuario(View view){
+        startActivity(new Intent(PantallaPrincipalVendedor.this, RegistroNewUsuario.class));
+        databaseReference.removeEventListener(listenerFb);
+        finish();
+    }
+
     //LISTENER
     class ListenerFb implements ChildEventListener {
 
@@ -142,14 +198,28 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
 
                 if(infoUsuario2.getTipo().equals("cliente")){
                     arrayUsuarios.add(infoUsuario2);
-                    //Log.d("infoApp",infoUsuario2.getUid());
-                    //SE ALMACENA LA LISTA DE USUARIOS CLIENTES
+                    arrayNombres.add(infoUsuario2.getNombre());
+
+
+                    textAutoComplete.setThreshold(1);
+
+                    nombres=new String[arrayNombres.size()];
+                    nombres=arrayNombres.toArray(nombres);
+
+                    ArrayAdapter<String> adapterAutoComplete = new ArrayAdapter<String>(PantallaPrincipalVendedor.this,
+                            android.R.layout.simple_list_item_1,nombres);
+                    textAutoComplete.setAdapter(adapterAutoComplete);
+
                 }
+
+
             }
              iniciarRecyclerView();
 
 
         }
+
+
 
         @Override
         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {

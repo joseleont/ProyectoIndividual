@@ -15,14 +15,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="36dp"
         android:layout_toEndOf="@+id/rvImage"
         android:text="@string/text"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/rvMontoTotal"
+        app:layout_constraintStart_toEndOf="@+id/rvImage"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.488" />
+        app:layout_constraintVertical_bias="0.42" />
 
     <TextView
         android:id="@+id/rvMontoTotal"
@@ -30,12 +30,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="44dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/rvNombre"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rvNombre"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/rvNombre" />
 
     <ImageView
         android:id="@+id/rvImage"

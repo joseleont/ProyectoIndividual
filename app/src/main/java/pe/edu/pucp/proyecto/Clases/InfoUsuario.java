@@ -10,6 +10,7 @@ public class InfoUsuario {
     private String contraseña;
     private String correo;
     private String numeroTelefonico;
+    private String direccion;
 
     private String tipo;
 
@@ -18,8 +19,26 @@ public class InfoUsuario {
 
     private String montoTotal;
 
+    private String cantDeudas;
+
     private String apodo;
 
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getCantDeudas() {
+        return cantDeudas;
+    }
+
+    public void setCantDeudas(String cantDeudas) {
+        this.cantDeudas = cantDeudas;
+    }
 
     public String getUid() {
         return uid;

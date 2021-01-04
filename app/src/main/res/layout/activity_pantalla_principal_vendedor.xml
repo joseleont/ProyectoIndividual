@@ -8,25 +8,49 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="112dp"
-        android:layout_height="104dp"
-        android:layout_marginEnd="68dp"
+        android:layout_width="172dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:drawableStart="@drawable/fui_ic_anonymous_white_24dp"
+        android:onClick="agregarUsuario"
         android:text="Agregar Nuevo Usuario"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="162dp" />
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUsuarios"
-        android:layout_width="354dp"
-        android:layout_height="245dp"
+        android:layout_width="336dp"
+        android:layout_height="292dp"
         android:layout_margin="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="116dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.408"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoComplete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
+        android:completionHint="Nombre"
+        android:hint="Insertar Nombre"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:onClick="filtrar"
+        android:text="Filtrar"
+        app:layout_constraintEnd_toEndOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/autoComplete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
