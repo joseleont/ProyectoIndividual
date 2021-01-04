@@ -187,6 +187,7 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
         finish();
     }
 
+
     //LISTENER
     class ListenerFb implements ChildEventListener {
 
@@ -201,6 +202,7 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
                     arrayNombres.add(infoUsuario2.getNombre());
 
 
+                    //AUTOCOMPLETAR
                     textAutoComplete.setThreshold(1);
 
                     nombres=new String[arrayNombres.size()];

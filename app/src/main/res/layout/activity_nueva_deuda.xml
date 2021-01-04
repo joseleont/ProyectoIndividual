@@ -2,42 +2,38 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".Vendedor.NuevaDeuda">
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MONTO TOTAL"
-        tools:layout_editor_absoluteX="215dp"
-        tools:layout_editor_absoluteY="68dp" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="96dp"
-        android:layout_height="51dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:onClick="guardar"
         android:text="GUARDAR"
         app:layout_constraintBottom_toBottomOf="@+id/btnCancelarNuevaDeuda"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnCancelarNuevaDeuda"
-        app:layout_constraintTop_toTopOf="@+id/btnCancelarNuevaDeuda" />
+        app:layout_constraintTop_toTopOf="@+id/btnCancelarNuevaDeuda"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnCancelarNuevaDeuda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:text="CANCELAR"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="284dp" />
+        app:layout_constraintStart_toStartOf="@+id/rvDeuda"
+        app:layout_constraintTop_toBottomOf="@+id/rvDeuda" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:onClick="agregarProducto"
         android:text="AGREGAR PRODUCTO"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,31 +41,30 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDeuda"
-        android:layout_width="350dp"
-        android:layout_height="297dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="343dp"
+        android:layout_height="266dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFecha" />
 
     <TextView
         android:id="@+id/textViewFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="FECHA"
-        android:textSize="30sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="64dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="52dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:onClick="mostrarFecha"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"

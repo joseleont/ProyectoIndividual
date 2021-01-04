@@ -4,14 +4,14 @@
 
     <item
         android:icon="@drawable/ic_action_help"
-        android:title="AYUDA"
-        app:showAsAction="always" />
+        android:title="@string/ayuda"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuModificarPerfil"
-        android:title="Modificar Perfil" />
+        android:title="@string/modificar_perfil" />
     <item
         android:id="@+id/menuSalirCliente"
         android:orderInCategory="50"
-        android:title="Salir"
+        android:title="@string/salir"
         app:showAsAction="never" />
 </menu>

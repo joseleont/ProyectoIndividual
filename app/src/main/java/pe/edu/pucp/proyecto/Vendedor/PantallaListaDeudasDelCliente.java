@@ -14,21 +14,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +47,7 @@ import java.util.Arrays;
 public class PantallaListaDeudasDelCliente extends AppCompatActivity {
 
     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
-
+    StorageReference storageReference=FirebaseStorage.getInstance().getReference();
 
     ArrayList<DeudaGeneral> arrayDeudasPendientes=new ArrayList<>();
     ArrayList<DeudaGeneral> arrayDeudasSaldadas=new ArrayList<>();
@@ -72,6 +83,11 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
         if(cliente.equals("cliente")){
             Button btn=findViewById(R.id.btnPLDAgregarDeuda);
             btn.setVisibility(View.INVISIBLE);
+
+            TextView textBienvenido=findViewById(R.id.textBienvenido);
+            textBienvenido.setVisibility(View.VISIBLE);
+
+
         }
 
 
@@ -92,6 +108,37 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
         listener = new Listener();
         databaseReference.child("Usuarios").child(uid).child("Pagos").addChildEventListener(listener);
 
+    }
+
+    public void colocarFoto(){
+        TextView textBienvenido=findViewById(R.id.textBienvenido);
+        textBienvenido.setVisibility(View.VISIBLE);
+
+        StorageReference referenceGlide = FirebaseStorage.getInstance().getReference().child("FotosPerfil/"+uid+"/fotoPerfil");
+
+        //en el child se debe poner el nombre del archivo
+        ImageView imagen=findViewById(R.id.imagenPerfilPLDC);
+
+        //   Glide.with(this).load(referenceGlide).into(imagen);
+        //load DESCARGA LA IMAGEN
+        //into la coloca en el imageview
+
+        referenceGlide.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Glide.with(PantallaListaDeudasDelCliente.this)
+                            .load(task.getResult())
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(imagen);
+
+                } else {
+
+                    Toast.makeText(PantallaListaDeudasDelCliente.this,"Error en obtener la foto de perfil",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
 
     }
@@ -250,6 +297,24 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
         btnPendiente.setVisibility(View.INVISIBLE);
         btnSaldado.setVisibility(View.VISIBLE);
 
+
+        if(cliente.equals("cliente")){
+
+
+            StorageReference fileRef=storageReference.child("FotosPerfil/"+uid+"/fotoPerfil");
+
+            fileRef.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+                @Override
+                public void onSuccess(StorageMetadata storageMetadata) {
+                    colocarFoto();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // Se montrara foto por defecto
+                }
+            });
+        }
 
 
     }

@@ -22,18 +22,19 @@
         android:id="@+id/textInfoCliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
         android:text="@string/nombre_cliente"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/textIdentificacionLista"
-        app:layout_constraintStart_toStartOf="@+id/textIdentificacionLista"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/imagenPerfilPLDC"
+        app:layout_constraintTop_toBottomOf="@+id/textBienvenido" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvListaDeudas"
-        android:layout_width="323dp"
-        android:layout_height="298dp"
+        android:layout_width="325dp"
+        android:layout_height="267dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +61,7 @@
         android:text="@string/deudas_pendientes"
         android:textStyle="bold"
         android:visibility="invisible"
+        app:backgroundTint="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/rvListaDeudas"
         app:layout_constraintTop_toBottomOf="@+id/rvListaDeudas" />
 
@@ -74,5 +76,29 @@
         app:layout_constraintEnd_toEndOf="@+id/rvListaDeudas"
         app:layout_constraintTop_toTopOf="@+id/btnPLDCDeudasPendientes"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textBienvenido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/bienvenido"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textInfoCliente"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="@+id/textInfoCliente"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imagenPerfilPLDC"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/perfil" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -139,7 +139,11 @@ public class RegistroNewUsuario extends AppCompatActivity {
             usuarioClase.setTipo("cliente");
 
 
-            databaseReference.child("Usuarios").push().setValue(usuarioClase).addOnSuccessListener(new OnSuccessListener<Void>() {
+            String uid=databaseReference.child("Usuarios").push().getKey();
+
+            usuarioClase.setUid(uid);
+
+            databaseReference.child("Usuarios").child(uid).setValue(usuarioClase).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
 

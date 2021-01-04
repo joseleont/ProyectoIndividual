@@ -35,4 +35,11 @@
     <string name="todo">TODO</string>
     <string name="numero_de_celular">numero de celular</string>
     <string name="direccion">Direccion</string>
+    <string name="bienvenido">BIENVENIDO!!!</string>
+    <string name="agregar_nuevo_usuario">Agregar Nuevo Usuario</string>
+    <string name="insertar_nombre">Insertar Nombre</string>
+    <string name="filtrar">Filtrar</string>
+    <string name="ayuda">AYUDA</string>
+    <string name="modificar_perfil">Modificar Perfil</string>
+    <string name="salir">Salir</string>
 </resources>
