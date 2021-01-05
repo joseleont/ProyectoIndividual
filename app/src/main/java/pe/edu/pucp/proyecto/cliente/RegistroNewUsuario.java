@@ -120,7 +120,7 @@ public class RegistroNewUsuario extends AppCompatActivity {
 
         //VERIFICAR SI EL USUARIO INGRESADO YA EXISTE
         for(int i=0;i<arrayUsuarios.size();i++){
-            if(nombre.getText().toString().equals(arrayUsuarios.get(i).getNombre())){
+            if((nombre.getText().toString()+apellido.getText().toString()).equals(arrayUsuarios.get(i).getNombre())){
                 error=2;
                 nombre.setError("Ya se encuentra registrado esta persona, debe ingresar uno nuevo");
                 break;
@@ -172,7 +172,7 @@ public class RegistroNewUsuario extends AppCompatActivity {
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             if(snapshot.getValue()!=null){
                 InfoUsuario infoUsuario2= snapshot.getValue(InfoUsuario.class);
-                Log.d("infoApp","Nombre: "+infoUsuario2.getNombre());
+                Log.d("infoApp1","Nombre: "+infoUsuario2.getNombre());
 
                 arrayUsuarios.add(infoUsuario2);
                 //SE ALMACENA LA LISTA DE USUARIOS

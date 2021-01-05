@@ -9,10 +9,6 @@
         android:title="Ayuda"
         app:showAsAction="always" />
     <item
-        android:id="@+id/menuModificarInformacion"
-        android:orderInCategory="3"
-        android:title="Modificar Informacion" />
-    <item
         android:id="@+id/menuSalirVendedor"
         android:orderInCategory="50"
         android:title="Salir" />

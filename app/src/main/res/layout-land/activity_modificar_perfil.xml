@@ -37,8 +37,8 @@
         android:id="@+id/btnCancelarModificarPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="356dp"
+        android:layout_marginTop="48dp"
         android:onClick="cancelar"
         android:text="Cancelar"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,13 +62,13 @@
         android:id="@+id/editTextCelularModificarPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="72dp"
         android:ems="10"
         android:hint="@string/numero_de_celular"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePerfil" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextDirecionModificarPerfil"
@@ -89,10 +89,10 @@
         android:layout_height="190dp"
 
 
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintEnd_toStartOf="@+id/editTextCelularModificarPerfil"
+        app:layout_constraintHorizontal_bias="0.159"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/perfil" />

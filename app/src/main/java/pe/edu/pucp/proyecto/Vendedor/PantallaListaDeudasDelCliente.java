@@ -2,6 +2,7 @@ package pe.edu.pucp.proyecto.Vendedor;
 
 import pe.edu.pucp.proyecto.Clases.DeudaGeneral;
 import pe.edu.pucp.proyecto.Clases.Listas.ListaDeudasSinPagarAdapter;
+import pe.edu.pucp.proyecto.Dialogos_Fragmentos.MenuAyuda;
 import pe.edu.pucp.proyecto.MainActivity;
 import pe.edu.pucp.proyecto.R;
 import pe.edu.pucp.proyecto.cliente.ModificarPerfil;
@@ -342,6 +343,8 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
 
     public void verDeudasSaldadas(View view){
 
+        TextView textMensaje=findViewById(R.id.textMensaje);
+        textMensaje.setVisibility(View.INVISIBLE);
 
         Button btnSaldado = findViewById(R.id.btnPLDCDeudasSaldadas);
         Button btnPendiente = findViewById(R.id.btnPLDCDeudasPendientes);
@@ -415,6 +418,8 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
                         //LISTA DE DEUDAS COMPLETAS
                         arrayDeudasSaldadas.add(deudaGeneral);
                         Log.d("infoAppF",deudaGeneral.getEstado()+"buenas0");
+                        TextView textMensaje=findViewById(R.id.textMensaje);
+                        textMensaje.setVisibility(View.INVISIBLE);
                     }
                     Log.d("infoAppF",deudaGeneral.getEstado());
                    // iniciarRecyclerView(2);
@@ -477,6 +482,12 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
                 Log.d("infoAppMenu","meunu");
                 Intent intentMenuModificarPerfil = new Intent( this , ModificarPerfil.class);
                 startActivity(intentMenuModificarPerfil);
+
+                return true;
+
+            case R.id.ayudaMenu:
+                MenuAyuda menuAyuda=new MenuAyuda();
+                menuAyuda.show(getSupportFragmentManager(),"ayuda_vendedor");
 
                 return true;
 

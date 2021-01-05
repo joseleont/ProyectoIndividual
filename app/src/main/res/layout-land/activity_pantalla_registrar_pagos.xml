@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Vendedor.PantallaRegistrarPagos">
+
+    <TextView
+        android:id="@+id/textRPmontoDeuda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/textview"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textDeudaPendienteSaldada"
+        app:layout_constraintStart_toEndOf="@+id/textDeudaPendienteSaldada"
+        app:layout_constraintTop_toTopOf="@+id/textDeudaPendienteSaldada"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPantallaRegistrarPagos"
+        android:layout_width="359dp"
+        android:layout_height="168dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textPRPProductosHistorial" />
+
+    <Button
+        android:id="@+id/btnDisminuirDeuda"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="28dp"
+        android:onClick="disminuirDeuda"
+        android:text="@string/realizar_pago"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/rvPantallaRegistrarPagos"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textDeudaPendienteSaldada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/deuda_pendiente"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textPRPProductosHistorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/lista_de_productos"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/rvPantallaRegistrarPagos"
+        app:layout_constraintHorizontal_bias="0.419"
+        app:layout_constraintStart_toStartOf="@+id/rvPantallaRegistrarPagos"
+        app:layout_constraintTop_toBottomOf="@+id/textDeudaPendienteSaldada" />
+
+    <Button
+        android:id="@+id/btnPRPVerHistorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="verHistorialPagos"
+        android:text="@string/historial_de_pagos"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/btnPRPVerListaProductos"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btnPRPVerListaProductos"
+        app:layout_constraintTop_toBottomOf="@+id/btnPRPVerListaProductos" />
+
+    <Button
+        android:id="@+id/btnPRPVerListaProductos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:onClick="verListaProductos"
+        android:text="@string/lista_de_producto"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/btnDisminuirDeuda"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/btnDisminuirDeuda"
+        app:layout_constraintTop_toBottomOf="@+id/btnDisminuirDeuda" />
+</androidx.constraintlayout.widget.ConstraintLayout>

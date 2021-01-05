@@ -21,9 +21,9 @@
             android:id="@+id/textView"
             android:layout_width="321dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Uso de la aplicación"
+            android:text="@string/uso_de_la_aplicaci_n"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -52,11 +52,19 @@
             android:padding="16dp">
 
             <TextView
+                android:id="@+id/dialogTexto2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bienvenido!!                                                                                Vendedor:                                                                                           En esta aplicación facilita el control de las deudas de los clientes con cuentas en esta aplicación, además, podrás crear cuentas apartes. La ventaja de la aplicación es que se puede observar el historial de pagos y los productos comprados por cada cliente cliente."
+                android:textColor="@color/black" />
+
+            <TextView
                 android:id="@+id/dialogTexto"
                 android:layout_width="365dp"
                 android:layout_height="wrap_content"
-                android:text="BUENAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAS123456789"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                tools:text="                                                                                                                                                                   Cliente:                                                                                                                          Gracias a esta aplicación puede observar las deudas pendiente que faltan por saldar. Además, puedes ver el historial de pagos y los productos adquiridos en la deuda. FInalmente, usted puede modificar su perfil a su gusto." />
+
         </LinearLayout>
     </ScrollView>
 

@@ -160,11 +160,6 @@ public class PantallaPrincipalVendedor extends AppCompatActivity {
 
                 break;
 
-            case R.id.menuModificarInformacion:
-
-                break;
-
-
             case R.id.menuSalirVendedor:
 
                 AuthUI instance = AuthUI.getInstance();
