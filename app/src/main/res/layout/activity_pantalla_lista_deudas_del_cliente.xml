@@ -14,7 +14,7 @@
         android:onClick="agregarDeuda"
         android:text="@string/agregar_deuda"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintHorizontal_bias="0.83"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInfoCliente" />
 
@@ -22,8 +22,8 @@
         android:id="@+id/textInfoCliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:text="@string/nombre_cliente"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imagenPerfilPLDC"
@@ -34,9 +34,10 @@
         android:layout_width="325dp"
         android:layout_height="267dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textIdentificacionLista" />
 
@@ -44,11 +45,11 @@
         android:id="@+id/textIdentificacionLista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:text="@string/lista_de_deudas_pendientes"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/rvListaDeudas"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/rvListaDeudas"
         app:layout_constraintTop_toBottomOf="@+id/btnPLDAgregarDeuda" />
 
@@ -61,7 +62,6 @@
         android:text="@string/deudas_pendientes"
         android:textStyle="bold"
         android:visibility="invisible"
-        app:backgroundTint="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/rvListaDeudas"
         app:layout_constraintTop_toBottomOf="@+id/rvListaDeudas" />
 
@@ -96,7 +96,7 @@
         android:layout_height="72dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/perfil" />
@@ -114,5 +114,16 @@
         app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="@+id/rvListaDeudas"
         app:layout_constraintTop_toTopOf="@+id/rvListaDeudas" />
+
+    <Button
+        android:id="@+id/btnVerPerfilLDC"
+        android:layout_width="55dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="verPerfilCliente"
+        app:icon="@drawable/fui_ic_anonymous_white_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import pe.edu.pucp.proyecto.Dialogos_Fragmentos.MenuAyuda;
 import pe.edu.pucp.proyecto.MainActivity;
 import pe.edu.pucp.proyecto.R;
 import pe.edu.pucp.proyecto.cliente.ModificarPerfil;
+import pe.edu.pucp.proyecto.cliente.Perfil;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,7 +58,7 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
     String nombre;
     String uid;
 
-    int montoTotal;
+    String montoTotal;
 
     String cliente;
 
@@ -71,11 +72,12 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_lista_deudas_del_cliente);
 
+
         Intent intent=getIntent();
-        usuario=intent.getStringExtra("usuario");
+
         uid=intent.getStringExtra("uid");
         nombre=intent.getStringExtra("nombre");
-        montoTotal=intent.getIntExtra("montoTotal",0);
+        montoTotal=intent.getStringExtra("montoTotal");
         cliente=intent.getStringExtra("cliente")+"";
 
 
@@ -88,7 +90,8 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
             TextView textBienvenido=findViewById(R.id.textBienvenido);
             textBienvenido.setVisibility(View.VISIBLE);
 
-
+            Button btnVerPerfil=findViewById(R.id.btnVerPerfilLDC);
+            btnVerPerfil.setVisibility(View.INVISIBLE);
         }
 
 
@@ -115,14 +118,14 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
         TextView textBienvenido=findViewById(R.id.textBienvenido);
         textBienvenido.setVisibility(View.VISIBLE);
 
+
+
         StorageReference referenceGlide = FirebaseStorage.getInstance().getReference().child("FotosPerfil/"+uid+"/fotoPerfil");
 
         //en el child se debe poner el nombre del archivo
         ImageView imagen=findViewById(R.id.imagenPerfilPLDC);
 
-        //   Glide.with(this).load(referenceGlide).into(imagen);
-        //load DESCARGA LA IMAGEN
-        //into la coloca en el imageview
+       imagen.setVisibility(View.VISIBLE);
 
         referenceGlide.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
@@ -154,6 +157,14 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
         intent.putExtra("nombre",nombre);
         startActivity(intent);
 
+    }
+
+    public void verPerfilCliente(View view){
+        Intent intent=new Intent(this, Perfil.class);
+        intent.putExtra("uid",uid);
+        intent.putExtra("nombre",nombre);
+        intent.putExtra("montoTotal",montoTotal);
+        startActivity(intent);
     }
 
     public void ordenarPorFecha(DeudaGeneral[] arreglo){
@@ -300,7 +311,8 @@ public class PantallaListaDeudasDelCliente extends AppCompatActivity {
 
 
         if(cliente.equals("cliente")){
-
+            Button btnVerPerfil=findViewById(R.id.btnVerPerfilLDC);
+            btnVerPerfil.setVisibility(View.INVISIBLE);
 
             StorageReference fileRef=storageReference.child("FotosPerfil/"+uid+"/fotoPerfil");
 

@@ -116,12 +116,7 @@ public class ModificarPerfil extends AppCompatActivity implements DialogoModific
     public void colocarFoto(){
             StorageReference referenceGlide = FirebaseStorage.getInstance().getReference().child("FotosPerfil/"+currentUser.getUid()+"/fotoPerfil");
 
-            //en el child se debe poner el nombre del archivo
             ImageView imagen=findViewById(R.id.imagePerfil);
-
-         //   Glide.with(this).load(referenceGlide).into(imagen);
-            //load DESCARGA LA IMAGEN
-            //into la coloca en el imageview
 
         referenceGlide.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override

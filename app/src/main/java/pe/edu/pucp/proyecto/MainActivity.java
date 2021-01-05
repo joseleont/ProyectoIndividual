@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         // el segundo es para ingresar con google
 
         AuthUI instance = AuthUI.getInstance();
-        Intent intent = instance.createSignInIntentBuilder().setAvailableProviders(provedores).build();
+        Intent intent = instance.createSignInIntentBuilder().setLogo(R.drawable.notas).setAvailableProviders(provedores).build();
         //createSignInIntentBuilder(): CREAR EL CONJUNTO DE VENTANAS PARA PODER LOGEARSE.
         //setAvailableProviders(): Se debe ingresar dentro la lista de soportes que tendrá las ventanas
         // es decir, si puede logearse con google o con facebook
@@ -64,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode==1){
-             validarUsuario();
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            validarUsuario();
         }
     }
 

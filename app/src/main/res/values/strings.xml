@@ -32,7 +32,7 @@
     <string name="deudas_pendientes">DEUDAS PENDIENTES</string>
     <string name="cancelar">CANCELAR</string>
     <string name="cargando">Cargando...</string>
-    <string name="todo">TODO</string>
+
     <string name="numero_de_celular">numero de celular</string>
     <string name="direccion">Direccion</string>
     <string name="bienvenido">BIENVENIDO!!!</string>
@@ -45,4 +45,10 @@
     <string name="buenaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaas123456789">BUENAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAS123456789</string>
     <string name="uso_de_la_aplicaci_n">Uso de la aplicación</string>
     <string name="ingresar">Ingresar</string>
+    <string name="no_hay_deudas_pendientes">NO HAY DEUDAS PENDIENTES</string>
+    <string name="nombre">Nombre</string>
+
+    <string name="numero_celular">Numero Celular</string>
+
+    <string name="todo">TODO</string>
 </resources>

@@ -60,6 +60,7 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
     holder.rvNombre.setText(nombre);
     if((montoTotal+"").equals("null")){
         holder.rvMontoTotal.setText("S/. 0");
+        montoTotal="0";
     }else{
         holder.rvMontoTotal.setText("S/."+montoTotal);
     }
@@ -74,10 +75,10 @@ public class ListaUsuariosAdapter extends RecyclerView.Adapter<ListaUsuariosAdap
             Intent intent = new Intent(contexto, PantallaListaDeudasDelCliente.class);
 
             intent.putExtra("uid", data[position].getUid());
-            Log.d("infoAppLU","DD "+data[position].getUid());
+            //Log.d("infoAppLU","DD "+data[position].getUid());
             intent.putExtra("nombre", data[position].getNombre());
-            Log.d("infoAppLU","DD "+data[position].getNombre());
-           // intent.putExtra("montoTotal", data[position].getMontoTotal());
+            //Log.d("infoAppLU","DD "+data[position].getNombre());
+            intent.putExtra("montoTotal", data[position].getMontoTotal());
             contexto.startActivity(intent);
 
         }

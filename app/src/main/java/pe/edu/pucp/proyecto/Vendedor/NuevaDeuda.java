@@ -195,6 +195,11 @@ public class NuevaDeuda extends AppCompatActivity implements AgregarProducto.Pro
 
     }
 
+    public void cancelar(View view){
+        databaseReferenceCantidadDeDeudas.removeEventListener(listenerFb);
+        finish();
+    }
+
     public void guardarCantidadDeDeudas(){
         String a= String.valueOf(cantidadDeudas+1);
 

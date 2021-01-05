@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pe.edu.pucp.proyecto">
 
-    <queries>
-
-    </queries>
+    <queries></queries>
 
     <uses-feature
         android:name="android.hardware.camara"
@@ -15,14 +13,15 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_icono"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_icono_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".cliente.Perfil"></activity>
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/file_paths" />
@@ -37,13 +36,14 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Vendedor.PantallaRegistrarPagos" />
+        <activity android:name=".Vendedor.PantallaRegistrarPagos"
+            />
+        <activity android:name=".Vendedor.NuevaDeuda" />
         <activity
-            android:name=".Vendedor.NuevaDeuda" />
-        <activity android:name=".Vendedor.PantallaListaDeudasDelCliente"
-            android:parentActivityName=".Vendedor.PantallaPrincipalVendedor"/>
-        <activity android:name=".Vendedor.PantallaPrincipalVendedor"></activity>
-        <activity android:name=".cliente.RegistroNewUsuario"></activity>
+            android:name=".Vendedor.PantallaListaDeudasDelCliente"
+            android:parentActivityName=".Vendedor.PantallaPrincipalVendedor" />
+        <activity android:name=".Vendedor.PantallaPrincipalVendedor" />
+        <activity android:name=".cliente.RegistroNewUsuario" />
         <activity android:name=".cliente.ModificarPerfil" />
         <activity android:name=".MainActivity">
             <intent-filter>
