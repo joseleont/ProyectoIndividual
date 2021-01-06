@@ -243,7 +243,7 @@ public class ModificarPerfil extends AppCompatActivity implements DialogoModific
     public void guardar(View view){
 
         if(eleccion!=0){
-            guardarFoto(); //no se actualizo el perfil con ninguna foto
+            guardarFoto();
             guardarInformacion();
         }else{
             guardarInformacion();
@@ -323,6 +323,7 @@ public class ModificarPerfil extends AppCompatActivity implements DialogoModific
     public void cancelar(View view){
         databaseReference.removeEventListener(listenerFb);
         finish();
+        
     }
 
     @Override

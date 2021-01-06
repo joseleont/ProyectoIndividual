@@ -21,7 +21,7 @@ public class InfoUsuario {
 
     private String cantDeudas;
 
-    private String apodo;
+
 
 
     public String getDireccion() {
@@ -75,13 +75,7 @@ public class InfoUsuario {
     }
 
 
-    public String getApodo() {
-        return apodo;
-    }
 
-    public void setApodo(String apodo) {
-        this.apodo = apodo;
-    }
 
     public String getContraseña() {
         return contraseña;

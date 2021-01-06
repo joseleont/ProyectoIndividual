@@ -57,8 +57,7 @@ public class ListaDeudasAdapter extends RecyclerView.Adapter<ListaDeudasAdapter.
 
         if(actividad.equals("NuevaDeuda")){
             //la actividad NuevaDeuda la ha llamado
-
-
+            //NO DEBE ABRIR NADA
         }else{
             //la actividad PantallaRegistroPagos la ha llamado
 

@@ -91,12 +91,12 @@
         android:id="@+id/btnPLDCDeudasSaldadas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:onClick="verDeudasSaldadas"
         android:text="@string/deudas_saldadas"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/btnPLDCDeudasPendientes"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.928"
         app:layout_constraintStart_toStartOf="@+id/btnPLDCDeudasPendientes"
         app:layout_constraintTop_toBottomOf="@+id/btnPLDCDeudasPendientes" />
 

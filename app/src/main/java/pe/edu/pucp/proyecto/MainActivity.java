@@ -53,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         AuthUI instance = AuthUI.getInstance();
         Intent intent = instance.createSignInIntentBuilder().setLogo(R.drawable.notas).setAvailableProviders(provedores).build();
-        //createSignInIntentBuilder(): CREAR EL CONJUNTO DE VENTANAS PARA PODER LOGEARSE.
-        //setAvailableProviders(): Se debe ingresar dentro la lista de soportes que tendrá las ventanas
-        // es decir, si puede logearse con google o con facebook
 
         startActivityForResult(intent,1);
 
@@ -155,9 +152,6 @@ public class MainActivity extends AppCompatActivity {
             validarUsuario();
         }
     }
-
-
-
 
 
 

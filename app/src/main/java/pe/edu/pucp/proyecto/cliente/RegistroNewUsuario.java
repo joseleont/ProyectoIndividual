@@ -92,23 +92,6 @@ public class RegistroNewUsuario extends AppCompatActivity {
         EditText apellido=findViewById(R.id.editTextApellidoRegistro);
 
 
-        /*
-        EditText usuario=findViewById(R.id.editTextUsuarioRegistro);
-        if (usuario.getText().toString().isEmpty()){
-            usuario.setError("Debe ingresar un usuario");
-            error=1;
-        }
-        // Recorremos el texto de usuario para verificar si no hay un espacio en blanco
-        for (int i = 0; i < usuario.length(); i++) {
-            if (usuario.getText().toString().charAt(i) == ' '){
-                error=1;
-                usuario.setError("El usario no debe contener espacios vacios");
-                break;
-            }
-        }
-
-       */
-
         if (nombre.getText().toString().isEmpty()){
             nombre.setError("Debe ingresar un nombre");
             error=1;
